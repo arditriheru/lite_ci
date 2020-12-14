@@ -146,10 +146,14 @@ if (!function_exists('getDateIndo')) {
 }
 
 if (!function_exists('dateIndo')) {
-    function dateIndo() {
-        $dateIndo = Date('d') . " " .getMonthIndo(). " ".Date('Y');
-        return $dateIndo;
-    }
+    function dateIndo($date){
+    $monthIndo = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+    $year       = substr($date, 0, 4);               
+    $month      = substr($date, 5, 2);
+    $date       = substr($date, 8, 2);
+    $result     = $date . '&nbsp;' . $monthIndo[(int)$month-1]. '&nbsp;'. $year;
+    return($result);
+}
 }
 
 if (! function_exists('getAge')) {
