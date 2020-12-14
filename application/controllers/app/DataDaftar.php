@@ -318,7 +318,7 @@ class dataDaftar extends CI_Controller
 				$namahari = date('l', strtotime($booking_tanggal));
 
 				$daftar_hari = array(
-					'Sunday'    => '7',
+					'Sunday'    => '0',
 					'Monday'    => '1',
 					'Tuesday'   => '2',
 					'Wednesday' => '3',
