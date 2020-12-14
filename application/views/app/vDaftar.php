@@ -15,23 +15,23 @@
                   <div class="col-md-12">
                     <b class="bluetext">Ketentuan Umum Pendaftaran Online</b><br><br>
                     <ol>
-                      <li>Pendaftaran Online sementara ini hanya berlaku bagi Pasien yang telah memiliki Nomor Rekam Medis RSKIA Rachmi yang akan berobat Rawat Jalan.</li>
+                      <li>Pendaftaran online sementara ini hanya berlaku bagi pasien yang telah memiliki Nomor Rekam Medis RSKIA Rachmi yang akan berobat rawat jalan.</li>
                       <li>Bagi pasien baru yang belum pernah mendaftar di RSKIA Rachmi harap datang langsung ke bagian pendaftaran dengan membawa 1 lembar FC KTP.</li>
-                      <li>Pendaftaran Online dapat dilakukan untuk kontrol Poli dengan Jadwal H-30 s.d hari H saat jadwal kontrol dilakukan dengan memasukkan : Nomor RM , Tanggal Lahir, Pilihan Hari Kontrol dan Dokter untuk poli reguler. Dokter yang ditunjuk adalah dokter DPJP (Dokter Penanggung Jawab Pelayanan).</li>
-                      <li>Pasien hanya dapat mendaftar sekali pada Dokter, Jadwal dan Sesi yang sama.</li>
+                      <li>Pendaftaran online dapat dilakukan untuk kontrol poliklinik dengan jadwal H-30 s.d hari H saat jadwal kontrol dilakukan dengan memasukkan : Nomor RM , Tanggal Lahir, Jadwal Kontrol dan Dokter untuk poli reguler. Dokter yang ditunjuk adalah dokter DPJP (Dokter Penanggung Jawab Pelayanan).</li>
+                      <li>Pasien hanya dapat mendaftar sekali pada dokter, jadwal dan sesi yang sama.</li>
                       <li>Jadwal Dokter dapat berubah sewaktu waktu.</li>
-                      <li>Apabila Anda telah melakukan pendaftaran Online, Anda akan mendapatkan Bukti pendaftaran yang dapat di (screenshot) dan ditunjukkan pada saat Jadwal Kontrol.</li>
-                      <li>Apabila Anda ingin melihat detail Pendaftaran Online pada sub-menu Cetak Ulang di halaman ini.</li>
-                      <li>Nomor Antrian Periksa dokter adalah sesuai dengan urutan ketika melakukan registrasi ulang.</li>
-                      <li>Untuk kasus Gawat Darurat silakan datang ke UGD RSKIA Rachmi.</li>
-                      <li>Bukti Pendaftaran Online dibawa di loket Pendaftaran RSKIA Rachmi.</li>
-                      <li>Pasien yang telah melakukan registrasi online diharapkan datang tepat waktu.</li>
+                      <li>Apabila Anda telah melakukan daftar online, Anda akan mendapatkan bukti pendaftaran yang dapat di (screenshot) dan ditunjukkan pada saat jadwal kontrol.</li>
+                      <li>Apabila Anda ingin melihat kembali detail daftar online pada sub-menu Cetak Ulang di halaman sebelumnya.</li>
+                      <li>Nomor anrian periksa dokter adalah sesuai dengan urutan ketika melakukan daftar online.</li>
+                      <li>Untuk kasus Gawat Darurat silahkan datang langsung ke UGD RSKIA Rachmi.</li>
+                      <li>Bukti daftar online dibawa di bagian pendaftaran RSKIA Rachmi.</li>
+                      <li>Pasien yang telah melakukan daftar online diharapkan datang tepat waktu.</li>
                     </ol>
                     <b class="bluetext">Ketentuan Khusus</b><br><br>
                     <ol>
                       <li>Pasien dari luar kota wajib membawa hasil Non-Reaktif Rapid Test.</li>
-                      <li>Periksa Poli Anak pendamping 1 orang.</li>
-                      <li>Periksa Poli Kandungan pendamping menunggu diluar.</li>
+                      <li>Periksa poli anak pendamping 1 orang.</li>
+                      <li>Periksa poli kandungan pendamping menunggu diluar.</li>
                       <li>Selama pandemi tidak melayani USG 4D sampai batas waktu yang belum ditentukan.</li>
                     </ol><hr>
                   </div>
