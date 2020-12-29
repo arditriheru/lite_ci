@@ -134,7 +134,7 @@ class dataAntrian extends CI_Controller
 			$data['a_tcounter'] 	= $a_tcounter;
 			$data['a_ncounter'] 	= $a_ncounter;
 			$data['a_total'] 		= $a_total;
-			$data['a_tanggal'] 		= dateIndo($a_tanggal);
+			$data['a_tanggal'] 		= formatDateIndo($a_tanggal);
 			$data['a_jam'] 			= $a_jam;
 
 		}
@@ -236,7 +236,7 @@ class dataAntrian extends CI_Controller
 			$data['b_tcounter'] 	= $b_tcounter;
 			$data['b_ncounter'] 	= $b_ncounter;
 			$data['b_total'] 		= $b_total;
-			$data['b_tanggal'] 		= dateIndo($b_tanggal);
+			$data['b_tanggal'] 		= formatDateIndo($b_tanggal);
 			$data['b_jam'] 			= $b_jam;
 
 		}
@@ -338,7 +338,7 @@ class dataAntrian extends CI_Controller
 			$data['c_tcounter'] 	= $c_tcounter;
 			$data['c_ncounter'] 	= $c_ncounter;
 			$data['c_total'] 		= $c_total;
-			$data['c_tanggal'] 		= dateIndo($c_tanggal);
+			$data['c_tanggal'] 		= formatDateIndo($c_tanggal);
 			$data['c_jam'] 			= $c_jam;
 
 		}
