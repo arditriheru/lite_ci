@@ -17,7 +17,7 @@ if (!function_exists('getTopTitle')) {
 
 if (!function_exists('getCopyright')) {
 	function getCopyright(){
-		$getCopyright = "IT RSKIA Rachmi";
+		$getCopyright = "&#169;<script type='text/javascript'>var creditsyear = new Date();document.write(creditsyear.getFullYear());</script> Ardi Tri Heru";
 		return $getCopyright;
 	}
 }

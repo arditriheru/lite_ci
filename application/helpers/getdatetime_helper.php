@@ -145,8 +145,8 @@ if (!function_exists('getDateIndo')) {
     }
 }
 
-if (!function_exists('dateIndo')) {
-    function dateIndo($date){
+if (!function_exists('formatDateIndo')) {
+    function formatDateIndo($date){
     $monthIndo = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
     $year       = substr($date, 0, 4);               
     $month      = substr($date, 5, 2);
