@@ -63,7 +63,7 @@
                                         <strong class="card-title">Dokter <?php echo $d->nama_dokter ?></strong>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text">Tanggal <?php echo dateIndo($d->booking_tanggal) ?></p>
+                                        <p class="card-text">Tanggal <?php echo formatDateIndo($d->booking_tanggal) ?></p>
                                         <b>Poliklinik <?php echo $d->nama_sesi?></b><br>
                                         <h1><?php echo $d->total ?> Pasien</h1><br>
                                         <p>**Jumlah pasien terdaftar bersifat sementara dapat berubah setiap saat kecuali telah memenuhi kuota masing-masing dokter, booking jadwal poli dapat Anda lakukan maksimal H-30</p>

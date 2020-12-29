@@ -38,7 +38,7 @@
                 </div><br>
                 <div class="card-body card-block">
                   <form action="<?php echo base_url() ?>app/dataDaftar/login" method="post" role="form">
-                   <div class="form-group">
+                  <div class="form-group">
                     <label for="cc-payment" class="control-label mb-1">Nomor Rekam Medik</label>
                     <input name="id_catatan_medik" type="text" class="form-control" required="" placeholder="Masukkan Nomor RM Anda">
                   </div>

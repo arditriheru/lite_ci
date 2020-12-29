@@ -35,7 +35,7 @@
                     <tr>
                       <td>Jadwal Poliklinik</td>
                       <td>:</td>
-                      <td><?php echo dateIndo($d->booking_tanggal); ?></td>
+                      <td><?php echo formatDateIndo($d->booking_tanggal); ?></td>
                     </tr>
                     <tr>
                       <td>Jam Sesi</td>
@@ -45,7 +45,7 @@
                     <tr>
                       <td>Reservasi</td>
                       <td>:</td>
-                      <td><?php echo dateIndo($d->tanggal)." / ".$d->jam; ?></td>
+                      <td><?php echo formatDateIndo($d->tanggal)." / ".$d->jam; ?></td>
                     </tr>
                     <tr>
                       <td>Keterangan</td>
