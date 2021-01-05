@@ -14,7 +14,7 @@
                   <!-- content -->
                   <div class="col">
                     <section class="card">
-                      <a href="<?php echo base_url() ?>app/dataDaftar/dataSkrining">
+                      <a href="<?php echo base_url() ?>app/dataDaftar/auth">
                         <div class="social-box color-1">
                           <i class="fa fa-user-plus"></i>
                           <ul>
