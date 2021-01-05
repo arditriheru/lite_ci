@@ -124,7 +124,7 @@ class dataDaftar extends CI_Controller
 		}
 	}
 
-	public function daftar()
+	public function auth()
 	{
 		$data['title'] 		= "Daftar Online";
 		$data['subtitle'] 	= "";
@@ -446,6 +446,7 @@ class dataDaftar extends CI_Controller
 
 					$userdata = array(
 						'id_sesi'  	=> $id_sesi,
+						'submit'  	=> TRUE,
 					);
 
 					$this->session->set_userdata($userdata);
@@ -496,45 +497,99 @@ class dataDaftar extends CI_Controller
 			'aktif' 			=> $aktif,
 		);
 
-		$insert = $this->mSimetris->insertData('booking',$data);
-
-		$where = array(
-			'id_catatan_medik' 	=> $id_catatan_medik,
-			'booking_tanggal' 	=> $booking_tanggal,
-			'id_dokter' 		=> $id_dokter,
-			'id_sesi' 			=> $id_sesi,
-		);
-
-		$idbooking = $this->mSimetris->selectData('booking','id_booking',$where);
-
-		foreach($idbooking->result() as $d)
+		if(!$this->session->userdata('submit'))
 		{
-			$id_booking = $d->id_booking;
+
+			// validasi mencegah double submit
+
+			$where = array(
+				'id_catatan_medik' 	=> $id_catatan_medik,
+				'booking_tanggal' 	=> $booking_tanggal,
+				'id_dokter' 		=> $id_dokter,
+				'id_sesi' 			=> $id_sesi,
+			);
+
+			$idbooking = $this->mSimetris->selectData('booking','id_booking',$where);
+
+			foreach($idbooking->result() as $d)
+			{
+				$id_booking = $d->id_booking;
+			}
+
+			$result = $this->db->query("
+				SELECT id_booking, FIND_IN_SET( id_booking, (    
+				SELECT GROUP_CONCAT(id_booking) 
+				FROM booking 
+				WHERE booking_tanggal = '$booking_tanggal'
+				AND id_dokter = '$id_dokter'
+				AND id_sesi = '$id_sesi')
+				) AS noant
+				FROM booking
+				WHERE id_booking = '$id_booking'
+				")->result();
+
+			foreach ($result as $d) {
+				$id_booking = $d->id_booking;
+				$noant 		= $d->noant;
+
+				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					Berhasil mendaftar,<br><font size="4"><b>Nomor Antrian : 
+					'.$noant.'</b></font></div>');
+				redirect('app/dataDaftar/dataDetail/'.$id_booking);
+
+			}
+
+		}else{
+
+			$userdata = array(
+				'submit'  	=> FALSE,
+			);
+
+			$this->session->set_userdata($userdata);
+
+			$insert = $this->mSimetris->insertData('booking',$data);
+
+			$where = array(
+				'id_catatan_medik' 	=> $id_catatan_medik,
+				'booking_tanggal' 	=> $booking_tanggal,
+				'id_dokter' 		=> $id_dokter,
+				'id_sesi' 			=> $id_sesi,
+			);
+
+			$idbooking = $this->mSimetris->selectData('booking','id_booking',$where);
+
+			foreach($idbooking->result() as $d)
+			{
+				$id_booking = $d->id_booking;
+			}
+
+			$result = $this->db->query("
+				SELECT id_booking, FIND_IN_SET( id_booking, (    
+				SELECT GROUP_CONCAT(id_booking) 
+				FROM booking 
+				WHERE booking_tanggal = '$booking_tanggal'
+				AND id_dokter = '$id_dokter'
+				AND id_sesi = '$id_sesi')
+				) AS noant
+				FROM booking
+				WHERE id_booking = '$id_booking'
+				")->result();
+
+			foreach ($result as $d) {
+				$id_booking = $d->id_booking;
+				$noant 		= $d->noant;
+
+				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					Berhasil mendaftar,<br><font size="4"><b>Nomor Antrian : 
+					'.$noant.'</b></font></div>');
+				redirect('app/dataDaftar/dataDetail/'.$id_booking);
+
+			}
+
 		}
 
-		$result = $this->db->query("
-			SELECT id_booking, FIND_IN_SET( id_booking, (    
-			SELECT GROUP_CONCAT(id_booking) 
-			FROM booking 
-			WHERE booking_tanggal = '$booking_tanggal'
-			AND id_dokter = '$id_dokter'
-			AND id_sesi = '$id_sesi')
-			) AS noant
-			FROM booking
-			WHERE id_booking = '$id_booking'
-			")->result();
-
-		foreach ($result as $d) {
-			$id_booking = $d->id_booking;
-			$noant 		= $d->noant;
-
-			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				Berhasil mendaftar,<br><font size="4"><b>Nomor Antrian : 
-				'.$noant.'</b></font></div>');
-			redirect('app/dataDaftar/dataDetail/'.$id_booking);
-
-		}
 	}
 
 	public function dataDetail($id)
