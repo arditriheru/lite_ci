@@ -205,7 +205,7 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 		
-		$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1'")->result();
+		$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1' ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm',$data);
@@ -646,7 +646,7 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 
-		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
+		$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1' ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
 		$data['datasesi'] = $this->db->query("SELECT id_sesi, nama_sesi FROM sesi")->result();
 		
 		$this->load->view('templates/header',$data);
