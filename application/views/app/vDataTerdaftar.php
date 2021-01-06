@@ -24,7 +24,7 @@
                                         <select name="id_dokter" id="id_dokter" class=" form-control" required="">
                                             <option value="">Pilih</option>
                                             <?php foreach ($datadokter as $d) : ?>
-                                                <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_dokter ?></option>
+                                                <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_unit.' - '.$d->nama_dokter ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>

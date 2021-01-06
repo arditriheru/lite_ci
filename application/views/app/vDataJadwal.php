@@ -24,7 +24,7 @@
                                         <select name="id_dokter" id="id_dokter" class=" form-control" required="">
                                             <option value="">Pilih</option>
                                             <?php foreach ($datadokter as $d) : ?>
-                                                <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_dokter ?></option>
+                                                <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_unit.' - '.$d->nama_dokter ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
@@ -46,68 +46,68 @@
                                         <strong class="card-title">Dokter <?php echo $nama_dokter ?></strong>
                                     </div>
                                     <div class="card-body">
-                                       <table class="table table-striped">
-                                          <thead>
+                                     <table class="table table-striped">
+                                      <thead>
+                                        <tr>
+                                            <th scope="col"><center>Hari</center></th>
+                                            <th scope="col"><center>Pukul</center></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($datasenin as $d) : ?>
                                             <tr>
-                                                <th scope="col"><center>Hari</center></th>
-                                                <th scope="col"><center>Pukul</center></th>
+                                                <td><center>Senin</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($datasenin as $d) : ?>
-                                                <tr>
-                                                    <td><center>Senin</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php foreach ($dataselasa as $d) : ?>
-                                                <tr>
-                                                    <td><center>Selasa</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php foreach ($datarabu as $d) : ?>
-                                                <tr>
-                                                    <td><center>Rabu</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php foreach ($datakamis as $d) : ?>
-                                                <tr>
-                                                    <td><center>Kamis</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php foreach ($datajumat as $d) : ?>
-                                                <tr>
-                                                    <td><center>Jumat</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php foreach ($datasabtu as $d) : ?>
-                                                <tr>
-                                                    <td><center>Sabtu</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                            <?php foreach ($dataminggu as $d) : ?>
-                                                <tr>
-                                                    <td><center>Minggu</center></td>
-                                                    <td><center><?php echo $d->jam.$d->ims ?></center></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        <?php endforeach ?>
+                                        <?php foreach ($dataselasa as $d) : ?>
+                                            <tr>
+                                                <td><center>Selasa</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        <?php foreach ($datarabu as $d) : ?>
+                                            <tr>
+                                                <td><center>Rabu</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        <?php foreach ($datakamis as $d) : ?>
+                                            <tr>
+                                                <td><center>Kamis</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        <?php foreach ($datajumat as $d) : ?>
+                                            <tr>
+                                                <td><center>Jumat</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        <?php foreach ($datasabtu as $d) : ?>
+                                            <tr>
+                                                <td><center>Sabtu</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                        <?php foreach ($dataminggu as $d) : ?>
+                                            <tr>
+                                                <td><center>Minggu</center></td>
+                                                <td><center><?php echo $d->jam.$d->ims ?></center></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                    </div>
 
-                    <?php } ?>
+                <?php } ?>
 
-                </div>
-            </div> <!-- .card -->
-        </div>
+            </div>
+        </div> <!-- .card -->
     </div>
+</div>
 
 </div><!-- .animated -->
 </div><!-- .content -->
