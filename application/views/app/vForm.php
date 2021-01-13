@@ -11,7 +11,10 @@
               <div class="card-body">
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
-               <form action="<?php echo base_url() ?>app/dataDaftar/form2" method="post">
+               <div class="progress mb-2" style="height: 5px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              </div><hr>
+              <form action="<?php echo base_url() ?>app/dataDaftar/form2" method="post">
                 <div class="form-group">
                   <label for="cc-payment" class="control-label mb-1">Nomor Rekam Medik</label>
                   <input class="form-control" type="text" name="id_catatan_medik"

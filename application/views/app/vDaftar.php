@@ -27,38 +27,39 @@
                       <li>Bukti daftar online dibawa di bagian pendaftaran RSKIA Rachmi.</li>
                       <li>Pasien yang telah melakukan daftar online diharapkan datang tepat waktu.</li>
                     </ol>
-                    <b class="bluetext">Ketentuan Khusus</b><br><br>
+                    <!-- <b class="bluetext">Ketentuan Khusus</b><br><br>
                     <ol>
                       <li>Pasien dari luar kota wajib membawa hasil Non-Reaktif Rapid Test.</li>
                       <li>Periksa poli anak pendamping 1 orang.</li>
                       <li>Periksa poli kandungan pendamping menunggu diluar.</li>
                       <li>Selama pandemi tidak melayani USG 4D sampai batas waktu yang belum ditentukan.</li>
-                    </ol><hr>
+                    </ol> --><hr>
                   </div>
                 </div><br>
                 <div class="card-body card-block">
                   <form action="<?php echo base_url() ?>app/dataDaftar/login" method="post" role="form">
-                  <div class="form-group">
-                    <label for="cc-payment" class="control-label mb-1">Nomor Rekam Medik</label>
-                    <input name="id_catatan_medik" type="text" class="form-control" required="" placeholder="Masukkan Nomor RM Anda">
-                  </div>
-                  <div class="form-group">
-                    <label for="cc-payment" class="control-label mb-1">Tanggal Lahir</label>
-                    <input name="tgl_lahir" type="date" class="form-control" required="" placeholder="Masukkan Tanggal Lahir">
-                  </div>
-                  <div>
-                    <button id="registration" name="ceklogin" type="submit" class="btn btn-lg btn-info btn-block">
-                      <span id="search-schedule-amount">Login</span>
-                      <span id="search-schedule-sending" style="display:none;">Sending…</span>
-                    </button>
-                  </div>
-                </form>
+                    <div class="form-group">
+                      <label for="cc-payment" class="control-label mb-1">Nomor Rekam Medik</label>
+                      <input name="id_catatan_medik" type="text" class="form-control" required="" placeholder="Masukkan Nomor RM Anda">
+                    </div>
+                    <div class="form-group">
+                      <label for="cc-payment" class="control-label mb-1">Tanggal Lahir</label>
+                      <input name="tgl_lahir" type="date" class="form-control" required="" placeholder="Masukkan Tanggal Lahir">
+                    </div>
+                    <div>
+                      <button id="registration" name="ceklogin" type="submit" class="btn btn-lg btn-info btn-block">
+                        <i class="fa fa-sign-in"></i>
+                        <span id="search-schedule-amount">Login</span>
+                        <span id="search-schedule-sending" style="display:none;">Sending…</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
+            
           </div>
-         
         </div>
-      </div>
-      <br><br>
-    </div><!-- .animated -->
+        <br><br>
+      </div><!-- .animated -->
   </div><!-- .content -->

@@ -11,8 +11,11 @@
               <div class="card-body">
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
-               <p>** Silahkan screenshot bukti reservasi ini dan tunjukkan ke petugas pendaftaran saat melakukan registrasi ulang.</p>
-               <table class="table">
+               <div class="progress mb-2" style="height: 5px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div><hr>
+              <p>** Silahkan screenshot bukti reservasi ini dan tunjukkan ke petugas pendaftaran saat melakukan registrasi ulang.</p>
+              <table class="table">
 
                 <?php foreach ($datadaftar as $d) : ?>
 
