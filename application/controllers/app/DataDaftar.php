@@ -298,7 +298,7 @@ class dataDaftar extends CI_Controller
 
 			$data['btncolor'] 		= "btn-danger";
 			$data['btntype'] 		= "button";
-			$data['btntext'] 		= "Jadwal kosong";
+			$data['btntext'] 		= "Jadwal Kosong";
 
 		}else{
 
@@ -311,7 +311,7 @@ class dataDaftar extends CI_Controller
 
 			}else{
 
-				$data['btncolor'] 		= "btn-success";
+				$data['btncolor'] 		= "btn-info";
 				$data['btntype'] 		= "submit";
 				$data['btntext'] 		= "Lanjutkan";
 
@@ -387,7 +387,7 @@ class dataDaftar extends CI_Controller
 
 			$data['btncolor'] 		= "btn-danger";
 			$data['btntype'] 		= "button";
-			$data['btntext'] 		= "Sudah terdaftar";
+			$data['btntext'] 		= "Sudah Mendaftar Sebelumnya";
 
 		}else{
 
@@ -404,7 +404,7 @@ class dataDaftar extends CI_Controller
 
 				$data['btncolor'] 		= "btn-danger";
 				$data['btntype'] 		= "button";
-				$data['btntext'] 		= "Dokter cuti";
+				$data['btntext'] 		= "Dokter Cuti";
 
 			}else{
 
@@ -436,13 +436,13 @@ class dataDaftar extends CI_Controller
 
 					$data['btncolor'] 		= "btn-danger";
 					$data['btntype'] 		= "button";
-					$data['btntext'] 		= "Kuota penuh";
+					$data['btntext'] 		= "Kuota Penuh";
 
 				}else{
 
-					$data['btncolor'] 		= "btn-success";
+					$data['btncolor'] 		= "btn-info";
 					$data['btntype'] 		= "submit";
-					$data['btntext'] 		= "Daftar sekarang";
+					$data['btntext'] 		= "Daftar Sekarang";
 
 					$userdata = array(
 						'id_sesi'  	=> $id_sesi,
