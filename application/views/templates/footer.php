@@ -18,8 +18,8 @@
 </div>
 </div>
 </header> -->
-<div align="center">
-    <p><a href="https://instagram.com/arditriheru" target="_blank"><?php echo getCopyright()." - ".getVersion() ?></a></p>
+<div class="typo-articles" align="center">
+    <p class="small"><a href="https://instagram.com/arditriheru" target="_blank"><?php echo getCopyright()." - ".getVersion() ?></a></p>
 </div>
 </div>
 
