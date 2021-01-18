@@ -718,6 +718,18 @@ class dataDaftar extends CI_Controller
 		$this->load->view('templates/footer',$data);
 	}
 
+	public function deleteDataRegistrasi($id)
+	{
+		$where = array('id_booking' => $id);
+		$this->mSimetris->deleteData('booking',$where);
+		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<font size="5">Berhasil membatalkan jadwal poli</font>
+			</div>');
+		redirect('app/dataDaftar/dataRegistrasi/');
+
+	}
+
 } 
 
 ?>
