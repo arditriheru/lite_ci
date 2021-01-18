@@ -375,9 +375,7 @@ class dataDaftar extends CI_Controller
 
 		$where1 = array(
 			'id_catatan_medik' 	=> $id_catatan_medik,
-			'id_dokter' 		=> $id_dokter,
 			'booking_tanggal' 	=> $booking_tanggal,
-			'id_sesi' 			=> $id_sesi,
 		);
 
 		$cekdaftar = $this->mSimetris->countData('booking',$where1);
