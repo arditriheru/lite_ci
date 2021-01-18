@@ -70,55 +70,66 @@
              <p>** Silahkan screenshot bukti reservasi ini dan tunjukkan ke petugas pendaftaran saat melakukan registrasi ulang.</p>
              <table class="table">
 
-              <?php foreach ($datadaftar as $d) : ?>
-
-                <tbody>
-                  <tr>
-                    <td>Nomor RM</td>
-                    <td>:</td>
-                    <td><?php echo $d->id_catatan_medik; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Nama Pasien</td>
-                    <td>:</td>
-                    <td><?php echo $d->nama; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Nama Dokter</td>
-                    <td>:</td>
-                    <td><?php echo "dr. ".$d->nama_dokter; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Jadwal Poliklinik</td>
-                    <td>:</td>
-                    <td><?php echo formatDateIndo($d->booking_tanggal); ?></td>
-                  </tr>
-                  <tr>
-                    <td>Jam Sesi</td>
-                    <td>:</td>
-                    <td><?php echo $jadwal_jam." WIB"." (".$d->nama_sesi.")"; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Reservasi</td>
-                    <td>:</td>
-                    <td><?php echo formatDateIndo($d->tanggal)." / ".$d->jam; ?></td>
-                  </tr>
-                  <tr>
-                    <td>Keterangan</td>
-                    <td>:</td>
-                    <td><?php echo $d->keterangan; ?></td>
-                  </tr>
-                </tbody>
-
-              <?php endforeach ?>
+              <tbody>
+                <tr>
+                  <td>Nomor RM</td>
+                  <td>:</td>
+                  <td><?php echo $d->id_catatan_medik; ?></td>
+                </tr>
+                <tr>
+                  <td>Nama Pasien</td>
+                  <td>:</td>
+                  <td><?php echo $d->nama; ?></td>
+                </tr>
+                <tr>
+                  <td>Nama Dokter</td>
+                  <td>:</td>
+                  <td><?php echo "dr. ".$d->nama_dokter; ?></td>
+                </tr>
+                <tr>
+                  <td>Jadwal Poliklinik</td>
+                  <td>:</td>
+                  <td><?php echo formatDateIndo($d->booking_tanggal); ?></td>
+                </tr>
+                <tr>
+                  <td>Jam Sesi</td>
+                  <td>:</td>
+                  <td><?php echo $jadwal_jam." WIB"." (".$d->nama_sesi.")"; ?></td>
+                </tr>
+                <tr>
+                  <td>Reservasi</td>
+                  <td>:</td>
+                  <td><?php echo formatDateIndo($d->tanggal)." / ".$d->jam; ?></td>
+                </tr>
+                <tr>
+                  <td>Keterangan</td>
+                  <td>:</td>
+                  <td><?php echo $d->keterangan; ?></td>
+                </tr>
+              </tbody>
 
             </table>
-            <a href="<?php echo base_url() ?>"
-              <button id="payment-button" type="button"class="btn btn-lg btn-info btn-block">
-                <i class="fa fa-home fa-lg"></i>&nbsp;
-                <span id="payment-button-amount">Menu Utama</span>
-              </button>
-            </a>
+
+            <hr>
+
+            <div class="col-6 col-md-6">
+              <a href="<?php echo base_url() ?>">
+                <button id="payment-button" type="button"class="btn btn-info btn-block">
+                  <i class="fa fa-arrow-left fa-lg"></i>&nbsp;
+                  <span id="payment-button-amount">Back</span>
+                </button>
+              </a>
+            </div>
+
+            <div class="col-6 col-md-6">
+              <a href="<?php echo base_url('app/dataDaftar/deleteDataRegistrasi/'.$d->id_booking) ?>" onclick="javascript: return confirm('Anda yakin batalkan jadwal poli?')">
+                <button id="payment-button" type="button"class="btn btn-danger btn-block">
+                  <i class="fa fa-trash fa-lg"></i>&nbsp;
+                  <span id="payment-button-amount">Batalkan</span>
+                </button>
+              </a>
+            </div>
+
           </div>
 
         <?php endforeach; } ?>
