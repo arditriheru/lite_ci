@@ -36,7 +36,7 @@
                         <div class="social-box color-2">
                           <i class="fa fa-search-plus"></i>
                           <ul>
-                            <span>Jumlah Antrian</span>
+                            <span>Lihat Antrian</span>
                           </ul>
                         </div>
                       </a>

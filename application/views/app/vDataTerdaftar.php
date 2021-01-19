@@ -64,9 +64,9 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text">Tanggal <?php echo formatDateIndo($d->booking_tanggal) ?></p>
-                                        <b>Poliklinik <?php echo $d->nama_sesi?></b><br>
-                                        <h1><?php echo $d->total ?> Pasien</h1><br>
-                                        <p>**Jumlah pasien terdaftar bersifat sementara dapat berubah setiap saat kecuali telah memenuhi kuota masing-masing dokter, booking jadwal poli dapat Anda lakukan maksimal H-30</p>
+                                        <b class="text-blue">Poliklinik <?php echo $d->nama_sesi?></b><br>
+                                        <h3><?php echo $d->total ?> Pasien Sudah Mendaftar</h3><br>
+                                        <p>**Jumlah pasien yang sudah mendaftar bersifat sementara dapat berubah setiap saat kecuali telah memenuhi kuota masing-masing dokter. Booking jadwal poli dapat Anda lakukan maksimal H-30</p>
                                     </div>
                                 </div>
                             </div>

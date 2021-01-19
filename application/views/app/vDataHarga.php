@@ -19,10 +19,12 @@
                 </ul>
                 <div class="tab-content pl-3 pt-2" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <img class="img-responsive" src="<?php echo base_url() ?>assets/images/price-list.jpg" width="100%" alt="Rachmi Online"><br>
+                    <img class="img-responsive" src="<?php echo base_url() ?>assets/images/tabel-harga-persalinan.jpg" width="100%" alt="Rachmi Online"><br>
                     <div align="right"><small>Update : Agustus 2020</small></div>
                   </div>
                   <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <!-- <img class="img-responsive" src="<?php echo base_url() ?>assets/images/tabel-harga-vaksin.jpg" width="100%" alt="Rachmi Online"><br>
+                    <div align="right"><small>Update : Januari 2021</small></div> -->
                     <!-- <table class="table table-bordered table-hover table-striped tablesorter">
                       <thead>
                         <tr>
@@ -91,7 +93,7 @@
                 </div>
               </div>
             </div>
-           
+
           </div>
         </div>
         <br><br>
