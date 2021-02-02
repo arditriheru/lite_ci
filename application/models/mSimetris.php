@@ -84,6 +84,16 @@ class mSimetris extends CI_Model
 		return $query;
 	}
 
+	function dataSwab($where)
+	{
+		$this->db->select('booking_swab.*, mr_sex.nama_sex, jadwal_swab.hari, jadwal_swab.pukul');
+		$this->db->from('booking_swab');
+		$this->db->join('mr_sex','booking_swab.id_sex = mr_sex.id_sex');
+		$this->db->join('jadwal_swab','booking_swab.id_jadwal_swab = jadwal_swab.id_jadwal_swab');
+		$this->db->where($where);
+		return $this->db->get();
+	}
+
 }
 
 ?>
