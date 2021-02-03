@@ -12,7 +12,7 @@
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
                <div class="progress mb-2" style="height: 5px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-success" role="progressbar" style="width: 33%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div><hr>
               
               <form action="<?php echo base_url("swab/dataSwab/formIdentitasAksi") ?>" method="post" enctype="multipart/form-data">
@@ -66,7 +66,7 @@
                   <small class="text-danger"> **Wajib diisi</small>
                   <input class="form-control" type="email" name="email" placeholder="Masukkan Email Anda.." required="">
                 </div>
-                <div id="pay-invoice">
+                <!-- <div id="pay-invoice">
                   <div class="card-body">
                     <div class="card-title">
                       <h4 class="text-center">Upload KTP/KK<small class="text-danger"> **Wajib diisi</small></h4>
@@ -76,7 +76,7 @@
                       <input type="file" name="file_identitas" class="form-control-file" required="">
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block" onclick="loading()">
                   <span>Lanjutkan</span>
                   <span id="payment-button-sending" style="display:none;">Sending…</span>

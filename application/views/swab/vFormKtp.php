@@ -12,14 +12,14 @@
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
                <div class="progress mb-2" style="height: 5px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 34%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-success" role="progressbar" style="width: 33%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div><hr>
-              <form action="<?php echo base_url("swab/dataSwab/formNotaAksi") ?>" method="post" enctype="multipart/form-data">
+              <form action="<?php echo base_url("swab/dataSwab/formKtpAksi") ?>" method="post" enctype="multipart/form-data">
                 <!-- Credit Card -->
                 <div id="pay-invoice">
                   <div class="card-body">
                     <div class="card-title">
-                      <h4 class="text-center">Upload Bukti Pembayaran<br><small class="text-danger"> **Wajib diisi</small></h4><br>
+                      <h4 class="text-center">Upload Kartu Identitas<br><small class="text-danger"> **Wajib diisi</small></h4><br>
                     </div>
                     <hr>
                     <div class="alert alert-primary" role="alert">
@@ -27,7 +27,7 @@
                       Silahkan upload file jpg/jpeg/png.
                     </div>
                     <div class="form-group">
-                      <input type="file" name="file_pembayaran" class="form-control-file" required="">
+                      <input type="file" name="file_identitas" class="form-control-file" required="">
                     </div>
                   </div>
                 </div> <!-- .card -->

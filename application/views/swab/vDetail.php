@@ -11,8 +11,13 @@
               <div class="card-body">
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
-               <p>** Mohon ditunggu beberapa saat akan kami hubungi melalui aplikasi whatsApp. Silahkan screenshot bukti reservasi ini dan tunjukkan ke petugas pada hari pelaksanaan.</p>
-               <table class="table">
+               <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Berhasil mendaftar!</h4><br>
+                <p>Mohon ditunggu beberapa saat, tim kami akan menghubungi melalui aplikasi WhatsApp.</p>
+                <hr>
+                <p class="mb-0">Silahkan screenshot bukti reservasi ini dan tunjukkan ke petugas pada hari pelaksanaan.</p>
+              </div>
+              <table class="table">
 
                 <?php foreach ($data as $d) : ?>
 
