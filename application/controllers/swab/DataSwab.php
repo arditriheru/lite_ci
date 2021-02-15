@@ -55,7 +55,6 @@ class dataSwab extends CI_Controller
 			'id_jadwal_swab' 	=> $id_jadwal_swab,
 			'kontak' 			=> $kontak,
 			'email' 			=> $email,
-			'no_invoice' 		=> "inv".uniqid(),
 			'tanggal' 			=> $tanggal,
 			'jam' 				=> $jam
 		);
@@ -158,7 +157,6 @@ class dataSwab extends CI_Controller
 				'email' 			=> $this->session->userdata('email'),
 				'file_identitas' 	=> $this->session->userdata('file_identitas'),
 				'file_pembayaran' 	=> $file_pembayaran,
-				'no_invoice' 		=> $this->session->userdata('no_invoice'),
 				'tanggal' 			=> $this->session->userdata('tanggal'),
 				'jam' 				=> $this->session->userdata('jam')
 			);
