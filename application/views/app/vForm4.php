@@ -54,7 +54,7 @@
               <div class="form-group">
                 <label for="cc-payment" class="control-label mb-1">Untuk Tanggal</label>
                 <input class="form-control" type="text" name="booking_tanggal"
-                value="<?php echo $this->session->userdata('booking_tanggal'); ?>" readonly>
+                value="<?php echo formatDateIndo($this->session->userdata('booking_tanggal')); ?>" readonly>
               </div>
               <div class="form-group">
                 <label for="cc-payment" class="control-label mb-1">Sesi Jam</label>
