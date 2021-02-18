@@ -332,16 +332,8 @@ class dataDaftar extends CI_Controller
 				$data['datajam'] = $this->db->query("
 					SELECT id_sesi, jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari'")->result();
 
-				$result = $this->db->query("
-					SELECT id_sesi, jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari'")->result();
-
-				foreach ($result as $d) {
-					$jam = $d->jam;
-				}
-
 				$userdata = array(
 					'booking_tanggal'  	=> $booking_tanggal,
-					'jam'  				=> $jam,
 				);
 
 				$this->session->set_userdata($userdata);
@@ -429,6 +421,20 @@ class dataDaftar extends CI_Controller
 					$cekkuota = $d->kuota;
 				}
 
+				$result = $this->db->query("
+					SELECT jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari' AND id_sesi='$id_sesi'")->result();
+
+				foreach ($result as $d) {
+					$jam = $d->jam;
+				}
+
+				$userdata = array(
+					'id_sesi'  	=> $id_sesi,
+					'jam'  		=> $jam,
+				);
+
+				$this->session->set_userdata($userdata);
+
 				if($noant>$cekkuota)
 				{
 
@@ -441,13 +447,6 @@ class dataDaftar extends CI_Controller
 					$data['btncolor'] 		= "btn-info";
 					$data['btntype'] 		= "submit";
 					$data['btntext'] 		= "Daftar Sekarang";
-
-					$userdata = array(
-						'id_sesi'  	=> $id_sesi,
-						'submit'  	=> TRUE,
-					);
-
-					$this->session->set_userdata($userdata);
 
 				}
 			}
@@ -470,7 +469,7 @@ class dataDaftar extends CI_Controller
 		$tanggal          = getDatenow();
 		$jam              = getTimenow();
 		$status           = '2';
-		$keterangan       = 'DAFTAR MANDIRI, AMAN, '.$jenis_imunisasi;
+		$keterangan       = 'DAFTAR ONLINE, AMAN, '.$jenis_imunisasi;
 		$id_dokter        = $this->session->userdata('id_dokter');
 		$id_sesi          = $this->session->userdata('id_sesi');
 		$mandiri          = '1';
