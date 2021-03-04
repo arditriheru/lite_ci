@@ -11,9 +11,20 @@
               <div class="card-body">
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
-               <div class="progress mb-2" style="height: 5px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+               <div class="progress mb-2">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Step 2</div>
               </div><hr>
+
+              <?php if($this->session->userdata('id_unit')==2){ ?>
+                <div class="sufee-alert alert with-close alert-info alert-dismissible fade show">
+                  <span class="badge badge-pill badge-info">Info</span>
+                  <small>Khusus layanan USG 4D pendaftaran melalui telepon (0274) 376717 atau (0274) 415316.</small>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php } ?>
+
               <form action="<?php echo base_url() ?>app/dataDaftar/form3" method="post">
                 <div class="form-group">
                   <label for="cc-payment" class="control-label mb-1">Nomor Rekam Medik</label>
@@ -41,9 +52,9 @@
                       <option value="1">Imunisasi</option>
                     </select>
                   </div>
-                  
+
                 <?php } ?>
-                
+
                 <div class="form-group">
                   <label class="control-label mb-1">Jadwal Tersedia</label><br>
                   <?php 
@@ -68,7 +79,7 @@
 
           </div>
         </div>
-        
+
       </div>
     </div>
     <br><br>

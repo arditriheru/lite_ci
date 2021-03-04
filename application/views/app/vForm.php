@@ -11,8 +11,8 @@
               <div class="card-body">
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
-               <div class="progress mb-2" style="height: 5px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+               <div class="progress mb-2">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Step 1</div>
               </div><hr>
               <form action="<?php echo base_url() ?>app/dataDaftar/form2" method="post">
                 <div class="form-group">

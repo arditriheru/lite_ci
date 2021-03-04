@@ -9,47 +9,40 @@
                 <img src="<?php echo base_url() ?>assets/images/logo-rachmi-akreditasi-kars.png" alt="Rachmi Online">
               </div>
               <div class="card-body">
-               <?php echo $this->session->flashdata('alert') ?>
-               <!-- content -->
-              <p>** Silahkan screenshot bukti reservasi ini dan tunjukkan ke petugas pendaftaran saat melakukan registrasi ulang.</p>
+              <?php echo $this->session->flashdata('alert') ?>
+              <!-- content -->
+              <p>** Silahkan screenshot bukti pendaftaran online ini dan tunjukkan ke petugas pendaftaran saat melakukan registrasi ulang.</p>
               <table class="table">
 
                 <?php foreach ($datadaftar as $d) : ?>
 
                   <tbody>
                     <tr>
-                      <td>Nomor RM</td>
-                      <td>:</td>
+                      <td><b>Nomor RM</b></td>
                       <td><?php echo $d->id_catatan_medik; ?></td>
                     </tr>
                     <tr>
-                      <td>Nama Pasien</td>
-                      <td>:</td>
+                      <td><b>Nama Pasien</b></td>
                       <td><?php echo $d->nama; ?></td>
                     </tr>
                     <tr>
-                      <td>Nama Dokter</td>
-                      <td>:</td>
+                      <td><b>Nama Dokter</b></td>
                       <td><?php echo "dr. ".$d->nama_dokter; ?></td>
                     </tr>
                     <tr>
-                      <td>Jadwal Poliklinik</td>
-                      <td>:</td>
+                      <td><b>Jadwal Poliklinik</b></td>
                       <td><?php echo formatDateIndo($d->booking_tanggal); ?></td>
                     </tr>
                     <tr>
-                      <td>Jam Sesi</td>
-                      <td>:</td>
+                      <td><b>Jam Sesi</b></td>
                       <td><?php echo $jadwal_jam." WIB"." (".$d->nama_sesi.")"; ?></td>
                     </tr>
                     <tr>
-                      <td>Reservasi</td>
-                      <td>:</td>
+                      <td><b>Reservasi</b></td>
                       <td><?php echo formatDateIndo($d->tanggal)." / ".$d->jam; ?></td>
                     </tr>
                     <tr>
-                      <td>Keterangan</td>
-                      <td>:</td>
+                      <td><b>Keterangan</b></td>
                       <td><?php echo $d->keterangan; ?></td>
                     </tr>
                   </tbody>

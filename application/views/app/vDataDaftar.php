@@ -18,7 +18,21 @@
                         <div class="social-box color-1">
                           <i class="fa fa-user-plus"></i>
                           <ul>
-                            <span>Daftar Sekarang</span>
+                            <span>Daftar Poliklinik</span>
+                          </ul>
+                        </div>
+                      </a>
+                    </section>
+                  </div>
+
+                  <!-- content -->
+                  <div class="col">
+                    <section class="card">
+                      <a href="<?php echo base_url() ?>swab/dataSwab">
+                        <div class="social-box color-2">
+                          <i class="fa fa-file-zip-o"></i>
+                          <ul>
+                            <span>Daftar SWAB Antigen</span>
                           </ul>
                         </div>
                       </a>
@@ -33,10 +47,10 @@
                   <div class="col">
                     <section class="card">
                       <a href="<?php echo base_url() ?>app/dataTerdaftar">
-                        <div class="social-box color-2">
+                        <div class="social-box color-5">
                           <i class="fa fa-search-plus"></i>
                           <ul>
-                            <span>Lihat Antrian</span>
+                            <span>Jumlah Antrian</span>
                           </ul>
                         </div>
                       </a>
@@ -47,7 +61,7 @@
                   <div class="col">
                     <section class="card">
                       <a href="<?php echo base_url() ?>app/dataDaftar/dataRegistrasi">
-                        <div class="social-box color-5">
+                        <div class="social-box color-4">
                           <i class="fa fa-address-card-o"></i>
                           <ul>
                             <span>Cetak Ulang</span>
