@@ -22,7 +22,7 @@
                                     <div class="col col-md-12">
                                         <div class="input-group">
                                          <select name="id_dokter" id="id_dokter" class=" form-control" required="">
-                                            <option value="">Nama Dokter</option>
+                                            <option value="">Pilih Dokter</option>
                                             <?php foreach ($datadokter as $d) : ?>
                                                 <option value="<?php echo $d->id_dokter ?>"><?php echo $d->nama_unit.' - '.$d->nama_dokter ?></option>
                                             <?php endforeach ?>
