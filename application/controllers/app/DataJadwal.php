@@ -33,7 +33,30 @@ class dataJadwal extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 		
-		$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1' ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
+		$data['datadokter'] = $this->db->query("
+			SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit 
+			FROM dokter 
+			JOIN mr_unit 
+			ON dokter.id_unit = mr_unit.id_unit 
+			WHERE dokter.status='1' 
+			ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
+		$data['datajadwal'] = $this->db->query("
+			SELECT dokter_jadwal.jam, mr_unit.nama_unit, dokter.nama_dokter,
+			CASE
+			WHEN dokter_jadwal.hari='1' THEN 'Senin'
+			WHEN dokter_jadwal.hari='2' THEN 'Selasa'
+			WHEN dokter_jadwal.hari='3' THEN 'Rabu'
+			WHEN dokter_jadwal.hari='4' THEN 'Kamis'
+			WHEN dokter_jadwal.hari='5' THEN 'Jumat'
+			WHEN dokter_jadwal.hari='6' THEN 'Sabtu'
+			WHEN dokter_jadwal.hari='0' THEN 'Minggu'
+			END AS nama_hari
+			FROM dokter_jadwal
+			JOIN dokter
+			ON dokter_jadwal.id_dokter=dokter.id_dokter
+			JOIN mr_unit
+			ON mr_unit.id_unit=dokter.id_unit
+			ORDER BY dokter_jadwal.hari, dokter_jadwal.id_sesi ASC")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vDataJadwal',$data);

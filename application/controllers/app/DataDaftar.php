@@ -204,8 +204,17 @@ class dataDaftar extends CI_Controller
 		$data['navlink1']      = "fa-question-circle-o";
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
-		
-		$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1' ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
+
+		if($this->session->userdata('login') !='1')
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				</div>');
+			redirect('app/dataDaftar/auth');
+		}else{
+			$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1' ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
+		}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm',$data);
@@ -224,7 +233,15 @@ class dataDaftar extends CI_Controller
 		$data['navlink1']      = "fa-question-circle-o";
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
-		
+
+		if($this->session->userdata('login') !='1')
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				</div>');
+			redirect('app/dataDaftar/auth');
+		}else{
 		$id = $this->input->post('id_dokter');
 
 		$data['datajadwal'] = $this->db->query("
@@ -257,7 +274,8 @@ class dataDaftar extends CI_Controller
 		);
 
 		$this->session->set_userdata($userdata);
-
+	}
+	
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm2',$data);
 		$this->load->view('templates/footer',$data);
@@ -276,10 +294,18 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 		
-		$id_dokter		 	= $this->session->userdata('id_dokter');
-		$booking_tanggal 	= $this->input->post('booking_tanggal');
+		if($this->session->userdata('login') !='1')
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				</div>');
+			redirect('app/dataDaftar/auth');
+		}else{
+		$id_dokter		 			= $this->session->userdata('id_dokter');
+		$booking_tanggal 		= $this->input->post('booking_tanggal');
 		$data['imunisasi']	= $this->input->post('imunisasi');
-		$tgl1      		  	= new DateTime();
+		$tgl1      		  		= new DateTime();
 		$tgl2             	= new DateTime("$booking_tanggal");
 		$selisih          	= $tgl1->diff($tgl2)->format("%a");
 
@@ -291,7 +317,6 @@ class dataDaftar extends CI_Controller
 		);
 
 		$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where);
-
 
 		if($cekjadwal<=0)
 		{
@@ -340,6 +365,7 @@ class dataDaftar extends CI_Controller
 
 			}
 		}
+	}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm3',$data);
@@ -359,11 +385,24 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 
-		$id_catatan_medik 			= $this->session->userdata('id_catatan_medik');
-		$booking_tanggal  			= $this->session->userdata('booking_tanggal');
-		$id_dokter        			= $this->session->userdata('id_dokter');
+		if($this->session->userdata('login') !='1')
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				</div>');
+			redirect('app/dataDaftar/auth');
+		}else{
+
+			if($this->session->userdata('submit')==1){
+				$this->session->unset_userdata('submit');
+			}else{
+
+		$id_catatan_medik 				= $this->session->userdata('id_catatan_medik');
+		$booking_tanggal  				= $this->session->userdata('booking_tanggal');
+		$id_dokter        				= $this->session->userdata('id_dokter');
 		$data['jenis_imunisasi']	= $this->input->post('jenis_imunisasi');
-		$id_sesi          			= $this->input->post('id_sesi');
+		$id_sesi          				= $this->input->post('id_sesi');
 
 		$where1 = array(
 			'id_catatan_medik' 	=> $id_catatan_medik,
@@ -451,6 +490,8 @@ class dataDaftar extends CI_Controller
 				}
 			}
 		}
+	}
+}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm4',$data);
@@ -459,7 +500,6 @@ class dataDaftar extends CI_Controller
 
 	public function formAksi()
 	{
-		
 		$nama             = $this->session->userdata('nama');
 		$alamat           = $this->session->userdata('alamat');
 		$kontak           = $this->session->userdata('telp');
@@ -474,30 +514,28 @@ class dataDaftar extends CI_Controller
 		$id_sesi          = $this->session->userdata('id_sesi');
 		$mandiri          = '1';
 		$antrian          = '0';
-		$aktif 			  = '0';
+		$aktif 			  		= '0';
 
-		$data = array(
-
-			'nama' 				=> $nama,
-			'alamat' 			=> $alamat,
-			'kontak' 			=> $kontak,
-			'id_catatan_medik' 	=> $id_catatan_medik,
-			'booking_tanggal' 	=> $booking_tanggal,
-			'tanggal' 			=> $tanggal,
-			'jam' 				=> $jam,
-			'status' 			=> $status,
-			'keterangan' 		=> $keterangan,
-			'id_dokter' 		=> $id_dokter,
-			'id_sesi' 			=> $id_sesi,
-			'mandiri' 			=> $mandiri,
-			'antrian' 			=> $antrian,
-			'aktif' 			=> $aktif,
-		);
-
-		if(!$this->session->userdata('submit'))
+		if(EMPTY($this->session->userdata('submit')))
 		{
+			$data = array(
+				'nama' 				=> $nama,
+				'alamat' 			=> $alamat,
+				'kontak' 			=> $kontak,
+				'id_catatan_medik' 	=> $id_catatan_medik,
+				'booking_tanggal' 	=> $booking_tanggal,
+				'tanggal' 			=> $tanggal,
+				'jam' 				=> $jam,
+				'status' 			=> $status,
+				'keterangan' 		=> $keterangan,
+				'id_dokter' 		=> $id_dokter,
+				'id_sesi' 			=> $id_sesi,
+				'mandiri' 			=> $mandiri,
+				'antrian' 			=> $antrian,
+				'aktif' 			=> $aktif,
+			);
 
-			// validasi mencegah double submit
+			$this->mSimetris->insertData('booking',$data);
 
 			$where = array(
 				'id_catatan_medik' 	=> $id_catatan_medik,
@@ -506,17 +544,16 @@ class dataDaftar extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$idbooking = $this->mSimetris->selectData('booking','id_booking',$where);
+			$idbooking = $this->mSimetris->selectData('booking','id_booking',$where)->result();
 
-			foreach($idbooking->result() as $d)
-			{
+			foreach($idbooking as $d){
 				$id_booking = $d->id_booking;
 			}
 
 			$result = $this->db->query("
-				SELECT id_booking, FIND_IN_SET( id_booking, (    
-				SELECT GROUP_CONCAT(id_booking) 
-				FROM booking 
+				SELECT id_booking, FIND_IN_SET( id_booking, (
+				SELECT GROUP_CONCAT(id_booking)
+				FROM booking
 				WHERE booking_tanggal = '$booking_tanggal'
 				AND id_dokter = '$id_dokter'
 				AND id_sesi = '$id_sesi')
@@ -526,27 +563,18 @@ class dataDaftar extends CI_Controller
 				")->result();
 
 			foreach ($result as $d) {
-				$id_booking = $d->id_booking;
 				$noant 		= $d->noant;
-
-				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Berhasil mendaftar,<br><font size="4"><b>Nomor Antrian : 
-					'.$noant.'</b></font></div>');
-				redirect('app/dataDaftar/dataDetail/'.$id_booking);
-
 			}
+
+			$this->session->set_userdata('submit', TRUE);
+
+			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				Berhasil mendaftar,<br><font size="4"><b>Terdaftar Nomor :
+				'.$noant.'</b></font></div>');
+			redirect('app/dataDaftar/dataDetail/'.$id_booking);
 
 		}else{
-
-			$userdata = array(
-				'submit'  	=> FALSE,
-			);
-
-			$this->session->set_userdata($userdata);
-
-			$insert = $this->mSimetris->insertData('booking',$data);
-
 			$where = array(
 				'id_catatan_medik' 	=> $id_catatan_medik,
 				'booking_tanggal' 	=> $booking_tanggal,
@@ -554,17 +582,16 @@ class dataDaftar extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$idbooking = $this->mSimetris->selectData('booking','id_booking',$where);
+			$idbooking = $this->mSimetris->selectData('booking','id_booking',$where)->result();
 
-			foreach($idbooking->result() as $d)
-			{
+			foreach($idbooking as $d){
 				$id_booking = $d->id_booking;
 			}
 
 			$result = $this->db->query("
-				SELECT id_booking, FIND_IN_SET( id_booking, (    
-				SELECT GROUP_CONCAT(id_booking) 
-				FROM booking 
+				SELECT id_booking, FIND_IN_SET( id_booking, (
+				SELECT GROUP_CONCAT(id_booking)
+				FROM booking
 				WHERE booking_tanggal = '$booking_tanggal'
 				AND id_dokter = '$id_dokter'
 				AND id_sesi = '$id_sesi')
@@ -574,17 +601,16 @@ class dataDaftar extends CI_Controller
 				")->result();
 
 			foreach ($result as $d) {
-				$id_booking = $d->id_booking;
 				$noant 		= $d->noant;
-
-				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Berhasil mendaftar,<br><font size="4"><b>Nomor Antrian : 
-					'.$noant.'</b></font></div>');
-				redirect('app/dataDaftar/dataDetail/'.$id_booking);
-
 			}
 
+			$this->session->set_userdata('submit', TRUE);
+
+			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+				Berhasil mendaftar,<br><font size="4"><b>Terdaftar Nomor :
+				'.$noant.'</b></font></div>');
+			redirect('app/dataDaftar/dataDetail/'.$id_booking);
 		}
 
 	}
@@ -602,10 +628,18 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 
+		if($this->session->userdata('login') !='1')
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				</div>');
+			redirect('app/dataDaftar/auth');
+		}else{
 		$id_dokter        = $this->session->userdata('id_dokter');
 		$id_sesi          = $this->session->userdata('id_sesi');
 		$booking_tanggal  = $this->session->userdata('booking_tanggal');
-		$hbt = date('w', strtotime($booking_tanggal));
+		$hbt 							= date('w', strtotime($booking_tanggal));
 
 		$data['datadaftar'] = $this->db->query("
 			SELECT *, dokter.nama_dokter, sesi.nama_sesi
@@ -624,7 +658,8 @@ class dataDaftar extends CI_Controller
 		}
 
 		$data['jadwal_jam'] = $jadwal_jam;
-		
+	}
+
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vDataDetail',$data);
 		$this->load->view('templates/footer',$data);
