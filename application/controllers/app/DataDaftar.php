@@ -242,40 +242,40 @@ class dataDaftar extends CI_Controller
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
-		$id = $this->input->post('id_dokter');
+			$id = $this->input->post('id_dokter');
 
-		$data['datajadwal'] = $this->db->query("
-			SELECT hari,
-			CASE
-			WHEN dokter_jadwal.hari='1' THEN 'Senin'
-			WHEN dokter_jadwal.hari='2' THEN 'Selasa'
-			WHEN dokter_jadwal.hari='3' THEN 'Rabu'
-			WHEN dokter_jadwal.hari='4' THEN 'Kamis'
-			WHEN dokter_jadwal.hari='5' THEN 'Jumat'
-			WHEN dokter_jadwal.hari='6' THEN 'Sabtu'
-			WHEN dokter_jadwal.hari='0' THEN 'Minggu'
-			END AS nama_hari
-			FROM dokter_jadwal WHERE id_dokter='$id'
-			GROUP BY hari")->result();
+			$data['datajadwal'] = $this->db->query("
+				SELECT hari,
+				CASE
+				WHEN dokter_jadwal.hari='1' THEN 'Senin'
+				WHEN dokter_jadwal.hari='2' THEN 'Selasa'
+				WHEN dokter_jadwal.hari='3' THEN 'Rabu'
+				WHEN dokter_jadwal.hari='4' THEN 'Kamis'
+				WHEN dokter_jadwal.hari='5' THEN 'Jumat'
+				WHEN dokter_jadwal.hari='6' THEN 'Sabtu'
+				WHEN dokter_jadwal.hari='0' THEN 'Minggu'
+				END AS nama_hari
+				FROM dokter_jadwal WHERE id_dokter='$id'
+				GROUP BY hari")->result();
 
-		$where = array('id_dokter' => $id);
+			$where = array('id_dokter' => $id);
 
-		$result = $this->mSimetris->selectData('dokter','id_unit,nama_dokter',$where)->result();
+			$result = $this->mSimetris->selectData('dokter','id_unit,nama_dokter',$where)->result();
 
-		foreach ($result as $d) {
-			$id_unit 		= $d->id_unit;
-			$nama_dokter 	= $d->nama_dokter;
+			foreach ($result as $d) {
+				$id_unit 		= $d->id_unit;
+				$nama_dokter 	= $d->nama_dokter;
+			}
+
+			$userdata = array(
+				'id_dokter'  	=> $id,
+				'id_unit'		=> $id_unit,
+				'nama_dokter'  	=> $nama_dokter,
+			);
+
+			$this->session->set_userdata($userdata);
 		}
 
-		$userdata = array(
-			'id_dokter'  	=> $id,
-			'id_unit'		=> $id_unit,
-			'nama_dokter'  	=> $nama_dokter,
-		);
-
-		$this->session->set_userdata($userdata);
-	}
-	
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm2',$data);
 		$this->load->view('templates/footer',$data);
@@ -302,70 +302,70 @@ class dataDaftar extends CI_Controller
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
-		$id_dokter		 			= $this->session->userdata('id_dokter');
-		$booking_tanggal 		= $this->input->post('booking_tanggal');
-		$data['imunisasi']	= $this->input->post('imunisasi');
-		$tgl1      		  		= new DateTime();
-		$tgl2             	= new DateTime("$booking_tanggal");
-		$selisih          	= $tgl1->diff($tgl2)->format("%a");
+			$id_dokter		 			= $this->session->userdata('id_dokter');
+			$booking_tanggal 		= $this->input->post('booking_tanggal');
+			$data['imunisasi']	= $this->input->post('imunisasi');
+			$tgl1      		  		= new DateTime();
+			$tgl2             	= new DateTime("$booking_tanggal");
+			$selisih          	= $tgl1->diff($tgl2)->format("%a");
 
-		$hari = date('w', strtotime($booking_tanggal));
+			$hari = date('w', strtotime($booking_tanggal));
 
-		$where = array(
-			'id_dokter' => $id_dokter,
-			'hari' 		=> $hari,
-		);
+			$where = array(
+				'id_dokter' => $id_dokter,
+				'hari' 		=> $hari,
+			);
 
-		$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where);
+			$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where);
 
-		if($cekjadwal<=0)
-		{
-
-			$data['btncolor'] 		= "btn-danger";
-			$data['btntype'] 		= "button";
-			$data['btntext'] 		= "Jadwal Kosong";
-
-		}else{
-
-			if($selisih>30)
+			if($cekjadwal<=0)
 			{
 
 				$data['btncolor'] 		= "btn-danger";
 				$data['btntype'] 		= "button";
-				$data['btntext'] 		= "Lebih dari 30 hari";
+				$data['btntext'] 		= "Jadwal Kosong";
 
 			}else{
 
-				$data['btncolor'] 		= "btn-info";
-				$data['btntype'] 		= "submit";
-				$data['btntext'] 		= "Lanjutkan";
+				if($selisih>30)
+				{
 
-				$namahari = date('l', strtotime($booking_tanggal));
+					$data['btncolor'] 		= "btn-danger";
+					$data['btntype'] 		= "button";
+					$data['btntext'] 		= "Lebih dari 30 hari";
 
-				$daftar_hari = array(
-					'Sunday'    => '0',
-					'Monday'    => '1',
-					'Tuesday'   => '2',
-					'Wednesday' => '3',
-					'Thursday'  => '4',
-					'Friday'    => '5',
-					'Saturday'  => '6'
-				);
+				}else{
 
-				$hari = $daftar_hari[$namahari];
+					$data['btncolor'] 		= "btn-info";
+					$data['btntype'] 		= "submit";
+					$data['btntext'] 		= "Lanjutkan";
 
-				$data['datajam'] = $this->db->query("
-					SELECT id_sesi, jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari'")->result();
+					$namahari = date('l', strtotime($booking_tanggal));
 
-				$userdata = array(
-					'booking_tanggal'  	=> $booking_tanggal,
-				);
+					$daftar_hari = array(
+						'Sunday'    => '0',
+						'Monday'    => '1',
+						'Tuesday'   => '2',
+						'Wednesday' => '3',
+						'Thursday'  => '4',
+						'Friday'    => '5',
+						'Saturday'  => '6'
+					);
 
-				$this->session->set_userdata($userdata);
+					$hari = $daftar_hari[$namahari];
 
+					$data['datajam'] = $this->db->query("
+						SELECT id_sesi, jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari'")->result();
+
+					$userdata = array(
+						'booking_tanggal'  	=> $booking_tanggal,
+					);
+
+					$this->session->set_userdata($userdata);
+
+				}
 			}
 		}
-	}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm3',$data);
@@ -398,100 +398,100 @@ class dataDaftar extends CI_Controller
 				$this->session->unset_userdata('submit');
 			}else{
 
-		$id_catatan_medik 				= $this->session->userdata('id_catatan_medik');
-		$booking_tanggal  				= $this->session->userdata('booking_tanggal');
-		$id_dokter        				= $this->session->userdata('id_dokter');
-		$data['jenis_imunisasi']	= $this->input->post('jenis_imunisasi');
-		$id_sesi          				= $this->input->post('id_sesi');
+				$id_catatan_medik 				= $this->session->userdata('id_catatan_medik');
+				$booking_tanggal  				= $this->session->userdata('booking_tanggal');
+				$id_dokter        				= $this->session->userdata('id_dokter');
+				$data['jenis_imunisasi']		= $this->input->post('jenis_imunisasi');
+				$id_sesi          				= $this->input->post('id_sesi');
 
-		$where1 = array(
-			'id_catatan_medik' 	=> $id_catatan_medik,
-			'booking_tanggal' 	=> $booking_tanggal,
-		);
-
-		$cekdaftar = $this->mSimetris->countData('booking',$where1);
-
-		if($cekdaftar>0)
-		{
-
-			$data['btncolor'] 		= "btn-danger";
-			$data['btntype'] 		= "button";
-			$data['btntext'] 		= "Sudah Mendaftar Sebelumnya";
-
-		}else{
-
-			$where2 = array(
-				'id_dokter' => $id_dokter,
-				'id_sesi' 	=> $id_sesi,
-				'tanggal' 	=> $booking_tanggal,
-			);
-
-			$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where2);
-
-			if($ceklibur>0)
-			{
-
-				$data['btncolor'] 		= "btn-danger";
-				$data['btntype'] 		= "button";
-				$data['btntext'] 		= "Dokter Cuti";
-
-			}else{
-
-				$hari = date('w', strtotime($booking_tanggal));
-
-				$where3 = array(
+				$where1 = array(
+					'id_catatan_medik' 	=> $id_catatan_medik,
 					'booking_tanggal' 	=> $booking_tanggal,
-					'id_dokter' 		=> $id_dokter,
-					'id_sesi' 			=> $id_sesi,
 				);
 
-				$count = $this->mSimetris->countData('booking',$where3);
-				$noant = $count+1;
+				$cekdaftar = $this->mSimetris->countData('booking',$where1);
 
-				$where4 = array(
-					'id_dokter' => $id_dokter,
-					'id_sesi' 	=> $id_sesi,
-					'hari' 		=> $hari,
-				);
-
-				$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where4);
-				foreach($kuota->result() as $d)
-				{
-					$cekkuota = $d->kuota;
-				}
-
-				$result = $this->db->query("
-					SELECT jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari' AND id_sesi='$id_sesi'")->result();
-
-				foreach ($result as $d) {
-					$jam = $d->jam;
-				}
-
-				$userdata = array(
-					'id_sesi'  	=> $id_sesi,
-					'jam'  		=> $jam,
-				);
-
-				$this->session->set_userdata($userdata);
-
-				if($noant>$cekkuota)
+				if($cekdaftar>0)
 				{
 
 					$data['btncolor'] 		= "btn-danger";
 					$data['btntype'] 		= "button";
-					$data['btntext'] 		= "Kuota Penuh";
+					$data['btntext'] 		= "Sudah Mendaftar Sebelumnya";
 
 				}else{
 
-					$data['btncolor'] 		= "btn-info";
-					$data['btntype'] 		= "submit";
-					$data['btntext'] 		= "Daftar Sekarang";
+					$where2 = array(
+						'id_dokter' => $id_dokter,
+						'id_sesi' 	=> $id_sesi,
+						'tanggal' 	=> $booking_tanggal,
+					);
 
+					$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where2);
+
+					if($ceklibur>0)
+					{
+
+						$data['btncolor'] 		= "btn-danger";
+						$data['btntype'] 		= "button";
+						$data['btntext'] 		= "Dokter Cuti";
+
+					}else{
+
+						$hari = date('w', strtotime($booking_tanggal));
+
+						$where3 = array(
+							'booking_tanggal' 	=> $booking_tanggal,
+							'id_dokter' 		=> $id_dokter,
+							'id_sesi' 			=> $id_sesi,
+						);
+
+						$count = $this->mSimetris->countData('booking',$where3);
+						$noant = $count+1;
+
+						$where4 = array(
+							'id_dokter' => $id_dokter,
+							'id_sesi' 	=> $id_sesi,
+							'hari' 		=> $hari,
+						);
+
+						$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where4);
+						foreach($kuota->result() as $d)
+						{
+							$cekkuota = $d->kuota;
+						}
+
+						$result = $this->db->query("
+							SELECT jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hari' AND id_sesi='$id_sesi'")->result();
+
+						foreach ($result as $d) {
+							$jam = $d->jam;
+						}
+
+						$userdata = array(
+							'id_sesi'  	=> $id_sesi,
+							'jam'  		=> $jam,
+						);
+
+						$this->session->set_userdata($userdata);
+
+						if($noant>$cekkuota)
+						{
+
+							$data['btncolor'] 		= "btn-danger";
+							$data['btntype'] 		= "button";
+							$data['btntext'] 		= "Kuota Penuh";
+
+						}else{
+
+							$data['btncolor'] 		= "btn-info";
+							$data['btntype'] 		= "submit";
+							$data['btntext'] 		= "Daftar Sekarang";
+
+						}
+					}
 				}
 			}
 		}
-	}
-}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vForm4',$data);
@@ -505,16 +505,23 @@ class dataDaftar extends CI_Controller
 		$kontak           = $this->session->userdata('telp');
 		$id_catatan_medik = $this->session->userdata('id_catatan_medik');
 		$booking_tanggal  = $this->session->userdata('booking_tanggal');
-		$jenis_imunisasi  = $this->input->post('jenis_imunisasi');
 		$tanggal          = getDatenow();
 		$jam              = getTimenow();
 		$status           = '2';
-		$keterangan       = 'DAFTAR ONLINE, AMAN, '.$jenis_imunisasi;
+		$jenis_imunisasi  = $this->input->post('jenis_imunisasi');
+
+		if(!$jenis_imunisasi==NULL)
+		{
+			$keterangan   = 'DAFTAR ONLINE, Imunisasi '.$jenis_imunisasi;
+		}else{
+			$keterangan   = 'DAFTAR ONLINE';
+		};
+
 		$id_dokter        = $this->session->userdata('id_dokter');
 		$id_sesi          = $this->session->userdata('id_sesi');
 		$mandiri          = '1';
 		$antrian          = '0';
-		$aktif 			  		= '0';
+		$aktif 			  = '0';
 
 		if(EMPTY($this->session->userdata('submit')))
 		{
@@ -636,29 +643,29 @@ class dataDaftar extends CI_Controller
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
-		$id_dokter        = $this->session->userdata('id_dokter');
-		$id_sesi          = $this->session->userdata('id_sesi');
-		$booking_tanggal  = $this->session->userdata('booking_tanggal');
-		$hbt 							= date('w', strtotime($booking_tanggal));
+			$id_dokter        = $this->session->userdata('id_dokter');
+			$id_sesi          = $this->session->userdata('id_sesi');
+			$booking_tanggal  = $this->session->userdata('booking_tanggal');
+			$hbt 							= date('w', strtotime($booking_tanggal));
 
-		$data['datadaftar'] = $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi
-			FROM booking, dokter, sesi
-			WHERE booking.id_dokter=dokter.id_dokter
-			AND booking.id_sesi=sesi.id_sesi
-			AND booking.id_booking='$id'
-			")->result();
+			$data['datadaftar'] = $this->db->query("
+				SELECT *, dokter.nama_dokter, sesi.nama_sesi
+				FROM booking, dokter, sesi
+				WHERE booking.id_dokter=dokter.id_dokter
+				AND booking.id_sesi=sesi.id_sesi
+				AND booking.id_booking='$id'
+				")->result();
 
-		$result = $this->db->query("
-			SELECT jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hbt' AND id_sesi='$id_sesi'
-			")->result();
+			$result = $this->db->query("
+				SELECT jam FROM dokter_jadwal WHERE id_dokter='$id_dokter' AND hari='$hbt' AND id_sesi='$id_sesi'
+				")->result();
 
-		foreach ($result as $d) {
-			$jadwal_jam = $d->jam;
+			foreach ($result as $d) {
+				$jadwal_jam = $d->jam;
+			}
+
+			$data['jadwal_jam'] = $jadwal_jam;
 		}
-
-		$data['jadwal_jam'] = $jadwal_jam;
-	}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vDataDetail',$data);
