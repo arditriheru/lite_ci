@@ -41,7 +41,7 @@ class dataJadwal extends CI_Controller
 			WHERE dokter.status='1' 
 			ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
 		$data['datajadwal'] = $this->db->query("
-			SELECT dokter_jadwal.jam, mr_unit.nama_unit, dokter.nama_dokter,
+			SELECT dokter_jadwal.jam, dokter_jadwal.kuota, mr_unit.nama_unit, dokter.nama_dokter,
 			CASE
 			WHEN dokter_jadwal.hari='1' THEN 'Senin'
 			WHEN dokter_jadwal.hari='2' THEN 'Selasa'
@@ -57,6 +57,14 @@ class dataJadwal extends CI_Controller
 			JOIN mr_unit
 			ON mr_unit.id_unit=dokter.id_unit
 			ORDER BY dokter_jadwal.hari, dokter_jadwal.id_sesi ASC")->result();
+
+		$data['datajadwallibur'] = $this->db->query("
+			SELECT *, dokter.nama_dokter, mr_unit.nama_unit
+			FROM dokter_jadwal_libur
+			JOIN dokter
+			ON dokter_jadwal_libur.id_dokter=dokter.id_dokter
+			JOIN mr_unit
+			ON dokter.id_unit=mr_unit.id_unit")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vDataJadwal',$data);
