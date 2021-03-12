@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 class dataJadwal extends CI_Controller
 {
@@ -7,14 +7,14 @@ class dataJadwal extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
-		{
-			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="4">Anda belum login</font>
-				</div>');
-			redirect('booking/login');
-		}
+		// if($this->session->userdata('login') !='1')
+		// {
+		// 	$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+		// 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		// 		<font size="4"><b>Anda belum login!</b></font>
+		// 		</div>');
+		// 	redirect('booking/login');
+		// }
 
 		$this->load->model("mSimetris");
 		$this->load->library('form_validation');
@@ -23,199 +23,144 @@ class dataJadwal extends CI_Controller
 	public function index()
 	{
 		$data['title'] 		= "Jadwal";
-		$data['subtitle'] 	= "Dokter";
+		$data['subtitle'] 	= "Jadwal Praktek";
 
-		$where1 = array(
-			'dokter.status' => 1
-		);
+		$data['navmenu1']      = base_url('app/dataHelp');
+		$data['navmenu2']      = base_url('dashboard');
+		$data['navmenu3']      = "javascript: history.back()";
 
-		$where2 = array(
-			'dokter.status' => 1
-		);
+		$data['navlink1']      = "fa-question-circle-o";
+		$data['navlink2']      = "fa-home";
+		$data['navlink3']      = "fa-arrow-circle-o-left";
+		
+		$data['datadokter'] = $this->db->query("
+			SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit 
+			FROM dokter 
+			JOIN mr_unit 
+			ON dokter.id_unit = mr_unit.id_unit 
+			WHERE dokter.status='1' 
+			ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
+		$data['datajadwal'] = $this->db->query("
+			SELECT dokter_jadwal.jam, dokter_jadwal.kuota, mr_unit.nama_unit, dokter.nama_dokter,
+			CASE
+			WHEN dokter_jadwal.hari='1' THEN 'Senin'
+			WHEN dokter_jadwal.hari='2' THEN 'Selasa'
+			WHEN dokter_jadwal.hari='3' THEN 'Rabu'
+			WHEN dokter_jadwal.hari='4' THEN 'Kamis'
+			WHEN dokter_jadwal.hari='5' THEN 'Jumat'
+			WHEN dokter_jadwal.hari='6' THEN 'Sabtu'
+			WHEN dokter_jadwal.hari='0' THEN 'Minggu'
+			END AS nama_hari
+			FROM dokter_jadwal
+			JOIN dokter
+			ON dokter_jadwal.id_dokter=dokter.id_dokter
+			JOIN mr_unit
+			ON mr_unit.id_unit=dokter.id_unit
+			ORDER BY dokter_jadwal.hari, dokter_jadwal.jam, dokter.nama_dokter ASC")->result();
 
-		$data['datajadwal'] 		= $this->mSimetris->dataJadwal($where2)->result();
-		$data['datadokter'] 		= $this->mSimetris->dataDokter("dokter",$where1,"nama_dokter ASC")->result();
-		$data['datajadwallibur'] 	= $this->mSimetris->dataJadwalLibur()->result();
+		$data['datajadwallibur'] = $this->db->query("
+			SELECT *, dokter.nama_dokter, mr_unit.nama_unit
+			FROM dokter_jadwal_libur
+			JOIN dokter
+			ON dokter_jadwal_libur.id_dokter=dokter.id_dokter
+			JOIN mr_unit
+			ON dokter.id_unit=mr_unit.id_unit
+			ORDER BY dokter_jadwal_libur.tanggal, dokter.nama_dokter ASC")->result();
 
 		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataJadwal',$data);
+		$this->load->view('app/vDataJadwal',$data);
 		$this->load->view('templates/footer',$data);
 	}
 
-	public function dataJadwalTab($id)
+	public function tampilData()
 	{
 		$data['title'] 		= "Jadwal";
-		$data['subtitle'] 	= "Dokter";
+		$data['subtitle'] 	= "Jadwal Praktek";
 
-		$data['id'] = $id;
+		$data['navmenu1']      = "app/dataHelp";
+		$data['navmenu2']      = "http://pendaftaran.rskiarachmi.co.id";
+		$data['navmenu3']      = "javascript:window.location=document.referrer";
 
-		$where1 = array(
-			'status' => 1
-		);
-		$where2 = array(
-			'dokter.id_dokter' => $id
-		);
+		$data['navlink1']      = "fa-question-circle-o";
+		$data['navlink2']      = "fa-home";
+		$data['navlink3']      = "fa-arrow-circle-o-left";
+		
+		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
 
-		$data['datadokter']			= $this->mSimetris->dataDokter("dokter",$where1,"nama_dokter ASC")->result();
-		$data['datajadwal'] 		= $this->mSimetris->dataJadwal($where2)->result();
-		$data['datajadwallibur']	= $this->mSimetris->dataJadwalLibur()->result();
+		$id_dokter = $this->input->post('id_dokter');
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vDataJadwal',$data);
-		$this->load->view('templates/footer',$data);
-	}
+		$data['id_dokter'] = $id_dokter;
 
-	public function tambahDataJadwal($id)
-	{
-		$data['id'] = $id;
+		$namadokter = $this->db->query("SELECT nama_dokter FROM dokter WHERE id_dokter = '$id_dokter'")->result();
 
-		$data['title'] 			= "Tambah";
-
-		if($id==1){
-			$data['subtitle'] 	= "Libur";
-		}else{
-			$data['subtitle'] 	= "Jadwal";
+		foreach ($namadokter as $d) {
+			$nama_dokter = $d->nama_dokter;
 		}
 
-		$where 				= array('status' => 1);
-		$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
-		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
+		$data['nama_dokter'] 	= $nama_dokter;
+
+
+		$data['datasenin'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=1")->result();
+
+		$data['dataselasa'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=2")->result();
+
+		$data['datarabu'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=3")->result();
+
+		$data['datakamis'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=4")->result();
+
+		$data['datajumat'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=5")->result();
+
+		$data['datasabtu'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=6")->result();
+
+		$data['dataminggu'] = $this->db->query("
+			SELECT *, sesi.nama_sesi,
+			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims
+			FROM dokter_jadwal, sesi
+			WHERE dokter_jadwal.id_dokter = '$id_dokter'
+			AND dokter_jadwal.id_sesi = sesi.id_sesi
+			AND dokter_jadwal.hari=0")->result();
 
 		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vTambahDataJadwal',$data);
+		$this->load->view('app/vDataJadwal',$data);
 		$this->load->view('templates/footer',$data);
 	}
 
-	public function tambahDataJadwalLiburAksi()
-	{
-		$id_dokter 	= $this->input->post('id_dokter');
-		$id_sesi    = $this->input->post('id_sesi');
-		$tanggal    = $this->input->post('tanggal');
-
-		$data = array(
-
-			'id_dokter' 	=> $id_dokter,
-			'id_sesi' 		=> $id_sesi,
-			'tanggal' 		=> $tanggal,
-
-		);
-
-		$this->mSimetris->insertData('dokter_jadwal_libur',$data);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="4">Berhasil menambahkan</font></div>');
-		redirect('booking/dataJadwal');
-
-	}
-
-	public function tambahDataJadwalAksi()
-	{
-		$id_dokter 	= $this->input->post('id_dokter');
-		$id_sesi    = $this->input->post('id_sesi');
-		$hari    	= $this->input->post('hari');
-		$jam    	= $this->input->post('jam');
-		$kuota    	= $this->input->post('kuota');
-		$ims    	= $this->input->post('ims');
-
-		$data = array(
-
-			'id_dokter' 	=> $id_dokter,
-			'id_sesi' 		=> $id_sesi,
-			'hari' 			=> $hari,
-			'jam' 			=> $jam,
-			'kuota' 		=> $kuota,
-			'ims' 			=> $ims,
-
-		);
-
-		$this->mSimetris->insertData('dokter_jadwal',$data);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="4">Berhasil menambahkan</font></div>');
-		redirect('booking/dataJadwal');
-
-	}
-
-	public function deleteDataJadwalLibur($id)
-	{
-		$where = array('id_jadwal_libur' => $id);
-		$this->mSimetris->deleteData('dokter_jadwal_libur',$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="4">Data berhasil dihapus</font>
-			</div>');
-		redirect('booking/dataJadwal');
-
-	}
-
-	public function deleteDataJadwal($id)
-	{
-		$where = array('id_jadwal' => $id);
-		$this->mSimetris->deleteData('dokter_jadwal',$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="4">Data berhasil dihapus</font>
-			</div>');
-		redirect('booking/dataJadwal');
-
-	}
-
-	public function updateDataJadwal($id)
-	{
-		$data['title'] 		= "Update";
-		$data['subtitle'] 	= "Jadwal";
-
-		$where = array(
-			'id_jadwal' => $id
-		);
-		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
-		$data['datajadwal'] = $this->mSimetris->dataJadwal($where)->result();
-
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vUpdateDataJadwal',$data);
-		$this->load->view('templates/footer',$data);
-	}
-
-	public function updateDataJadwalAksi()
-	{
-		$id 		= $this->input->post('id_jadwal');
-		$id_dokter 	= $this->input->post('id_dokter');
-		$id_sesi 	= $this->input->post('id_sesi');
-		$hari 	 	= $this->input->post('hari');
-		$jam 		= $this->input->post('jam');
-		$kuota 	 	= $this->input->post('kuota');
-		$ims 	 	= $this->input->post('ims');
-
-		$data = array(
-
-			'id_dokter' 		=> $id_dokter,
-			'id_sesi' 			=> $id_sesi,
-			'hari' 				=> $hari,
-			'jam' 				=> $jam,
-			'kuota' 			=> $kuota,
-			'ims' 				=> $ims,
-
-		);
-
-		$where = array(
-			'id_jadwal' 		=> $id
-		);
-
-		$this->mSimetris->updateData('dokter_jadwal',$data,$where);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="4">Data berhasil diupdate!</font>
-			</div>');
-		redirect('booking/dataJadwal/');
-
-	}
-
-
-
-}
+} 
 
 ?>
