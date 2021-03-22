@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-lg-6">
                   <div style="background-color: #fa7f72; height: auto; margin: 10px 0px; padding: 5px; text-align: center; width: auto;">
-                  Terpakai</div>
+                  Terisi</div>
                 </div>
                 <table class="table table-striped">
                   <thead>
@@ -26,13 +26,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($datakamar as $d) : ?>
-                     <?php
+                    <?php foreach ($datakamar as $d) :
+
                      if($d->ket_antri=='3'){ ?>
+
                       <tr>
+
                       <?php }else{ ?>
+
                         <tr style="background-color: #fa7f72;">
+
                         <?php } ?>
+
                         <td><center><?php echo $d->kelas ?></center></td>
                         <td><center><?php echo $d->nama_unit ?></center></td>
                         <td><center><?php echo $d->bed ?></center></td>
