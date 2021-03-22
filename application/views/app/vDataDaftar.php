@@ -50,7 +50,7 @@
                         <div class="social-box color-5">
                           <i class="fa fa-search-plus"></i>
                           <ul>
-                            <span>Jumlah Antrian</span>
+                            <span>Jumlah Terdaftar</span>
                           </ul>
                         </div>
                       </a>

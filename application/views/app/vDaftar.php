@@ -19,7 +19,7 @@
                       <li>Bagi pasien baru yang belum pernah mendaftar di RSKIA Rachmi harap datang langsung ke bagian pendaftaran dengan membawa 1 lembar FC KTP.</li>
                       <li>Pendaftaran online dapat dilakukan untuk kontrol poliklinik dengan jadwal H-30 s.d hari H jika kuota masih tersedia saat jadwal kontrol dilakukan dengan memasukkan : Nomor Rekam Medik , Tanggal Lahir, Jadwal Kontrol dan Dokter untuk poli reguler. Dokter yang ditunjuk adalah dokter DPJP (Dokter Penanggung Jawab Pelayanan).</li>
                       <li>Pasien hanya dapat mendaftar sekali pada dokter, jadwal yang sama.</li>
-                      <li>Jadwal Dokter dapat berubah sewaktu waktu.</li>
+                      <li>Jadwal dokter dapat berubah sewaktu waktu.</li>
                       <li>Apabila Anda telah melakukan daftar online, Anda akan mendapatkan bukti pendaftaran yang dapat di (screenshot) dan ditunjukkan pada ke petugas pendaftaran pada saat daftar ulang.</li>
                       <li>Apabila Anda ingin melihat kembali detail daftar online pada sub-menu Cetak Ulang di halaman sebelumnya.</li>
                       <li>Nomor antrian periksa dokter adalah sesuai dengan urutan ketika melakukan daftar ulang.</li>
