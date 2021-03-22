@@ -166,7 +166,7 @@ class dataDaftar extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				Username atau password salah!
+				Mohon maaf nomor RM atau tanggal lahir yang dimasukkan salah
 				</div>');
 		}else{
 
@@ -209,10 +209,12 @@ class dataDaftar extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				<font>Silahkan masukkan nomor RM dan tanggal lahir</font>
 				</div>');
 			redirect('app/dataDaftar/auth');
+
 		}else{
+
 			$data['datadokter'] = $this->db->query("SELECT dokter.id_dokter, dokter.nama_dokter, mr_unit.nama_unit FROM dokter JOIN mr_unit ON dokter.id_unit = mr_unit.id_unit WHERE dokter.status='1' ORDER BY dokter.id_unit, dokter.nama_dokter ASC")->result();
 		}
 
@@ -238,11 +240,14 @@ class dataDaftar extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				<font>Silahkan masukkan nomor RM dan tanggal lahir</font>
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
-			$id = $this->input->post('id_dokter');
+
+			$this->session->set_userdata('id_dokter', $this->input->post('id_dokter'));
+
+			$id = $this->session->userdata('id_dokter');
 
 			$data['datajadwal'] = $this->db->query("
 				SELECT hari,
@@ -268,7 +273,6 @@ class dataDaftar extends CI_Controller
 			}
 
 			$userdata = array(
-				'id_dokter'  	=> $id,
 				'id_unit'		=> $id_unit,
 				'nama_dokter'  	=> $nama_dokter,
 			);
@@ -298,14 +302,14 @@ class dataDaftar extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				<font>Silahkan masukkan nomor RM dan tanggal lahir</font>
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
-			$id_dokter		 			= $this->session->userdata('id_dokter');
-			$booking_tanggal 		= $this->input->post('booking_tanggal');
+			$id_dokter		 	= $this->session->userdata('id_dokter');
+			$booking_tanggal 	= $this->input->post('booking_tanggal');
 			$data['imunisasi']	= $this->input->post('imunisasi');
-			$tgl1      		  		= new DateTime();
+			$tgl1      		  	= new DateTime();
 			$tgl2             	= new DateTime("$booking_tanggal");
 			$selisih          	= $tgl1->diff($tgl2)->format("%a");
 
@@ -321,18 +325,22 @@ class dataDaftar extends CI_Controller
 			if($cekjadwal<=0)
 			{
 
-				$data['btncolor'] 		= "btn-danger";
-				$data['btntype'] 		= "button";
-				$data['btntext'] 		= "Jadwal Kosong";
+				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+					<font>Mohon maaf jadwal kosong, silahkan pilih jadwal yang tersedia</font>
+					</div>');
+				redirect('app/dataDaftar/form');
 
 			}else{
 
 				if($selisih>30)
 				{
 
-					$data['btncolor'] 		= "btn-danger";
-					$data['btntype'] 		= "button";
-					$data['btntext'] 		= "Lebih dari 30 hari";
+					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+						<font>Booking jadwal tidak dapat dilakukan lebih dari 30 hari</font>
+						</div>');
+					redirect('app/dataDaftar/form');
 
 				}else{
 
@@ -389,7 +397,7 @@ class dataDaftar extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				<font>Silahkan masukkan nomor RM dan tanggal lahir</font>
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
@@ -639,7 +647,7 @@ class dataDaftar extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-				<font>Silahkan masukkan Nomor RM dan Tanggal Lahir</font>
+				<font>Silahkan masukkan nomor RM dan tanggal lahir</font>
 				</div>');
 			redirect('app/dataDaftar/auth');
 		}else{
