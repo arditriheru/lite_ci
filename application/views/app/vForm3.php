@@ -52,7 +52,7 @@
 
                   <div class="form-group">
                     <label for="cc-payment" class="control-label mb-1">Jenis Imunisasi</label>
-                    <input class="form-control" type="text" name="jenis_imunisasi" placeholder="Contoh : Hepatitis B, Polio, BCG, DPT, HiB, Campak, dll" required="">
+                    <input class="form-control" type="text" name="jenis_imunisasi" placeholder="Contoh : Polio, BCG, Campak, DPT, HiB, Hepatitis B, dll" required="">
                   </div>
 
                 <?php } ?>
