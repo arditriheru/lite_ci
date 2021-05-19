@@ -87,7 +87,7 @@
                 <tr>
                   <td>Nama Dokter</td>
                   <td>:</td>
-                  <td><?php echo "dr. ".$d->nama_dokter; ?></td>
+                  <td><?php echo $d->nama_dokter; ?></td>
                 </tr>
                 <tr>
                   <td>Jadwal Poliklinik</td>

@@ -27,7 +27,7 @@
                       </tr>
                       <tr>
                         <td><b>Nama Dokter</b></td>
-                        <td><?php echo "dr. ".$d->nama_dokter; ?></td>
+                        <td><?php echo $d->nama_dokter; ?></td>
                       </tr>
                       <tr>
                         <td><b>Jadwal Poliklinik</b></td>

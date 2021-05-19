@@ -12,7 +12,7 @@
                <?php echo $this->session->flashdata('alert') ?>
                <!-- content -->
                <div class="progress mb-2">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">Step 3</div>
+                <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">Step 3</div>
               </div><hr>
               <form action="<?php echo base_url() ?>app/dataDaftar/form4" method="post">
                 <div class="form-group">
@@ -31,9 +31,11 @@
                   value="<?php echo $this->session->userdata('nama_dokter'); ?>" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="cc-payment" class="control-label mb-1">Untuk Tanggal</label>
-                  <input class="form-control" type="text" name="booking_tanggal"
+                  <label for="cc-payment" class="control-label mb-1">Jadwal Poliklinik</label>
+                  <input class="form-control" type="hidden" name="booking_tanggal"
                   value="<?php echo $this->session->userdata('booking_tanggal'); ?>" readonly>
+                  <input class="form-control" type="text"
+                  value="<?php echo formatDateIndo($this->session->userdata('booking_tanggal')); ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label class="control-label mb-1">Jam Praktek</label>

@@ -68,7 +68,7 @@
                  ?>
                </div>
                <div class="form-group">
-                <label class="control-label mb-1">Untuk Tanggal</label>
+                <label class="control-label mb-1">Jadwal Poliklinik</label>
                 <input class="form-control" type="date" name="booking_tanggal" required="">
               </div>
               <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
