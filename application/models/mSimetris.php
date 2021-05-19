@@ -94,6 +94,22 @@ class mSimetris extends CI_Model
 		return $this->db->get();
 	}
 
+	function dataNoAntrian($id_booking,$id_dokter,$id_sesi,$booking_tanggal)
+	{
+	$query = $this->db->query("
+		SELECT id_booking, nama, FIND_IN_SET( id_booking, (    
+		SELECT GROUP_CONCAT( id_booking
+		ORDER BY id_booking ASC ) 
+		FROM booking 
+		WHERE booking_tanggal = '$booking_tanggal'
+		AND id_dokter = '$id_dokter'
+		AND id_sesi = '$id_sesi')
+		) AS noant
+		FROM booking
+		WHERE id_booking = '$id_booking'");
+	return $query;
+	}
+
 }
 
 ?>
