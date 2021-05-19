@@ -33,13 +33,22 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 
-		$data['datakamar'] 	= $this->db->query("
-			SELECT mr_tt.kelas, mr_unit.nama_unit, mr_tt.no_bed, mr_tt.ket_antri,
-			IF(mr_tt.no_bed='1', 'A', 'B') AS bed
-			FROM mr_tt, mr_unit
-			WHERE mr_tt.id_unit = mr_unit.id_unit
-			AND mr_tt.id_unit IN(6,29,24,26,7,28,27,31,30,25)
-			ORDER BY mr_unit.nama_unit ASC")->result();
+		// $data['datakamar'] 	= $this->db->query("
+		// 	SELECT mr_tt.kelas, mr_unit.nama_unit, mr_tt.no_bed, mr_tt.ket_antri,
+		// 	IF(mr_tt.no_bed='1', 'A', 'B') AS bed
+		// 	FROM mr_tt, mr_unit
+		// 	WHERE mr_tt.id_unit = mr_unit.id_unit
+		// 	AND mr_tt.id_unit IN(6,29,24,26,7,28,27,31,30,25)
+		// 	ORDER BY mr_unit.nama_unit ASC")->result();
+
+		if($this->session->userdata('login') !='1')
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<b>Anda belum login</b>
+				</div>');
+			redirect('app/dataDaftar/auth');
+		}
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('app/vDataDaftar',$data);
@@ -170,10 +179,10 @@ class dataDaftar extends CI_Controller
 				</div>');
 		}else{
 
-			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				Selamat Datang '.$cek->nama.'..
-				</div>');
+			// $this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+			// 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			// 	Selamat Datang '.$cek->nama.'..
+			// 	</div>');
 
 			$userdata = array(
 				'id_catatan_medik'  => $cek->id_catatan_medik,
@@ -184,7 +193,7 @@ class dataDaftar extends CI_Controller
 			);
 
 			$this->session->set_userdata($userdata);
-			redirect('app/dataDaftar/form');
+			redirect('app/dataDaftar/');
 		}
 
 		$this->load->view('templates/header',$data);
@@ -565,17 +574,7 @@ class dataDaftar extends CI_Controller
 				$id_booking = $d->id_booking;
 			}
 
-			$result = $this->db->query("
-				SELECT id_booking, FIND_IN_SET( id_booking, (
-				SELECT GROUP_CONCAT(id_booking)
-				FROM booking
-				WHERE booking_tanggal = '$booking_tanggal'
-				AND id_dokter = '$id_dokter'
-				AND id_sesi = '$id_sesi')
-				) AS noant
-				FROM booking
-				WHERE id_booking = '$id_booking'
-				")->result();
+			$result = $this->mSimetris->dataNoAntrian($id_booking,$id_dokter,$id_sesi,$booking_tanggal)->result();
 
 			foreach ($result as $d) {
 				$noant 		= $d->noant;
@@ -703,8 +702,8 @@ class dataDaftar extends CI_Controller
 
 	public function tampilDataRegistrasi()
 	{
-		$data['title'] 		= "Daftar Online";
-		$data['subtitle'] 	= "";
+		$data['title'] 		   = "Daftar Online";
+		$data['subtitle'] 	   = "";
 
 		$data['navmenu1']      = base_url('app/dataHelp');
 		$data['navmenu2']      = base_url('dashboard');
@@ -714,13 +713,33 @@ class dataDaftar extends CI_Controller
 		$data['navlink2']      = "fa-home";
 		$data['navlink3']      = "fa-arrow-circle-o-left";
 
-		$id_catatan_medik 	= $this->input->post('id_catatan_medik');
+		$id_catatan_medik 	= $this->session->userdata('id_catatan_medik');
 		$id_dokter 			= $this->input->post('id_dokter');
 		$id_sesi 			= $this->input->post('id_sesi');
 		$booking_tanggal 	= $this->input->post('booking_tanggal');
 		$hbt 				= date('w', strtotime($booking_tanggal));
 
+		$where = array(
+			'id_catatan_medik' 	=> $id_catatan_medik,
+			'booking_tanggal' 	=> $booking_tanggal,
+			'id_dokter' 		=> $id_dokter,
+			'id_sesi' 			=> $id_sesi,
+		);
+
+		$idbooking = $this->mSimetris->selectData('booking','id_booking',$where)->result();
+
+		foreach($idbooking as $d){
+			$id_booking = $d->id_booking;
+		}
+
+		$result = $this->mSimetris->dataNoAntrian($id_booking,$id_dokter,$id_sesi,$booking_tanggal)->result();
+
+		foreach ($result as $d) {
+			$noant 		= $d->noant;
+		}
+
 		$data['id_dokter'] 	= $id_dokter;
+		$data['noant'] 		= $noant;
 
 		$cek = $this->db->query("
 			SELECT id_booking FROM booking WHERE id_catatan_medik = '$id_catatan_medik' AND booking_tanggal = '$booking_tanggal' AND id_dokter = '$id_dokter' AND id_sesi = '$id_sesi'
@@ -771,11 +790,13 @@ class dataDaftar extends CI_Controller
 		$this->mSimetris->deleteData('booking',$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Berhasil membatalkan jadwal poli</font>
+			Berhasil membatalkan jadwal poli
 			</div>');
-		redirect('app/dataDaftar/dataRegistrasi/');
+		redirect('app/dataDaftar/');
 
 	}
+
+	
 
 } 
 
