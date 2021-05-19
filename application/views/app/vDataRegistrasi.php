@@ -19,12 +19,12 @@
             <?php if(!isset($id_dokter)){ ?>
 
               <form action="<?php echo base_url() ?>app/dataDaftar/tampilDataRegistrasi" method="post">
-               <div class="row form-group">
+               <!-- <div class="row form-group">
                 <div class="col-12 col-md-12">
                   <label for="cc-payment" class="control-label mb-1">Nomor Rekam Medik</label>
                   <input name="id_catatan_medik" type="text" class="form-control" required="" placeholder="Masukkan Nomor RM Anda">
                 </div>
-              </div>
+              </div> -->
               <div class="row form-group">
                 <div class="col-12 col-md-12">
                   <label for="cc-payment" class="control-label mb-1">Nama Dokter</label>
@@ -71,6 +71,9 @@
              <table class="table">
 
               <tbody>
+              <tr>
+                  <td colspan="3" class="text-center"><?php echo "<b>Terdaftar Nomor : ".$noant."</b>"; ?></td>
+                </tr>
                 <tr>
                   <td>Nomor RM</td>
                   <td>:</td>
@@ -113,17 +116,17 @@
             <hr>
 
             <div class="col-6 col-md-6">
-              <a href="<?php echo base_url() ?>">
-                <button id="payment-button" type="button"class="btn btn-info btn-block">
+              <a href="<?php echo base_url("app/dataDaftar") ?>">
+                <button id="payment-button" type="button" class="btn btn-lg btn-info btn-block">
                   <i class="fa fa-arrow-left fa-lg"></i>&nbsp;
-                  <span id="payment-button-amount">Back</span>
+                  <span id="payment-button-amount">Home</span>
                 </button>
               </a>
             </div>
 
             <div class="col-6 col-md-6">
               <a href="<?php echo base_url('app/dataDaftar/deleteDataRegistrasi/'.$d->id_booking) ?>" onclick="javascript: return confirm('Anda yakin batalkan jadwal poli?')">
-                <button id="payment-button" type="button"class="btn btn-danger btn-block">
+                <button id="payment-button" type="button" class="btn btn-lg btn-danger btn-block">
                   <i class="fa fa-trash fa-lg"></i>&nbsp;
                   <span id="payment-button-amount">Batalkan</span>
                 </button>

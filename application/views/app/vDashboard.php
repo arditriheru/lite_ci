@@ -7,7 +7,7 @@
             <!-- content -->
             <div class="col">
                 <section class="card">
-                    <a href="<?php echo base_url() ?>app/dataDaftar">
+                    <a href="<?php echo base_url() ?>app/dataDaftar/auth">
                         <div class="social-box color-1">
                             <i class="fa fa-stethoscope"></i>
                             <ul>
